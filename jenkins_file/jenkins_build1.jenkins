@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+    stages {
+        stage("Build Docker Images") {
+            steps {
+                echo " ============== docker build start ==================="
+                sh "docker build -t kitsunesensei810/project ."
+                echo " ============== docker build stop ==================="
+                }
+            }
+        stage('DockerHub Push'){
+            steps{
+                echo " ============== DockerHub Push start =================="
+                sh "docker login -u nezimov -p 2jNAfLB@9q5rKit"
+                sh "docker push nezimov/prakt4:latest"
+                echo " ============== DockerHub Push stop ==================="
+            }
+        }
+        stage('k8s build'){
+            steps{
+            		withCredentials([file(credentialsId: 'mykubeconfig', variable: 'KUBECONFIG')]) {
+                		echo " ============== k8s build start ==================="
+                		sh "kubectl apply -f ."
+                		echo " ============== k8s build stop =================="
+                	} 	
+            }
+        }
+   }
+}

@@ -2,8 +2,9 @@ version: '3'
 
 services:
   web:
-    build: ./web
-    command: python manage.py runserver 0.0.0.0:8000
+    image: nezimov/prakt4:latest
+    #build: ./web
+    #command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/web_django
     ports:
