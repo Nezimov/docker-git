@@ -7,4 +7,4 @@ spec:
      - name: web
        image: nezimov/prakt4:latest
        ports:
-         - containerPort: 8000
+         - containerPort: 37601
